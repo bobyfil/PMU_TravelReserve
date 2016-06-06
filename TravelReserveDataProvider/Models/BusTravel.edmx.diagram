@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ccd2bcdcb36d4d43ad65001585d5d4ff" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="BusTravelModel.Bus" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusTravelModel.BusStation" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusTravelModel.BusType" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusTravelModel.City" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusTravelModel.Company" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusTravelModel.Route" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusTravelModel.Ticket" Width="1.5" PointX="9.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusTravelModel.Trip" Width="1.5" PointX="7.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusTravelModel.User" Width="1.5" PointX="9.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusTravelModel.UserPlan" Width="1.5" PointX="10.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusTravelModel.UserTicket" Width="1.5" PointX="12" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="BusTravelModel.FK__Bus__Company__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="BusTravelModel.FK__Bus__Type__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="BusTravelModel.FK__Trip__Bus__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="BusTravelModel.FK__BusStation__City__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="BusTravelModel.FK__Route__From__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="BusTravelModel.FK__Route__To__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="BusTravelModel.FK__Trip__Route__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="BusTravelModel.FK__UserPlan__Route__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="BusTravelModel.FK__Ticket__Trip__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="BusTravelModel.FK__UserTicke__Ticke__02084FDA" ManuallyRouted="false" />
+        <AssociationConnector Association="BusTravelModel.FK__UserPlan__UserId__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="BusTravelModel.FK__UserTicket__User__01142BA1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
