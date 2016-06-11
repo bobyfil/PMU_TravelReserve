@@ -9,10 +9,9 @@
 
 namespace TraverReserveCL
 {
-    using System;
     using System.Collections.Generic;
-     using System.Runtime.Serialization;
-    
+    using System.Runtime.Serialization;
+    [DataContract]
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,20 +20,20 @@ namespace TraverReserveCL
             this.UserPlan = new HashSet<UserPlan>();
             this.UserTicket = new HashSet<UserTicket>();
         }
-        
+        [DataMember(Order = 1)]
         public int Id { get; set; }
-        
+        [DataMember(Order = 2)]
         public string Email { get; set; }
-        
+        [DataMember(Order = 3)]
         public byte[] Password { get; set; }
-        
+        [DataMember(Order = 4)]
         public string Username { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        
+        [DataMember(Order = 5)]
         public virtual ICollection<UserPlan> UserPlan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        
+        [DataMember(Order = 6)]
         public virtual ICollection<UserTicket> UserTicket { get; set; }
     }
 }

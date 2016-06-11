@@ -12,7 +12,7 @@ namespace TraverReserveCL
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-    
+    [DataContract]
     public partial class Ticket
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,15 +20,20 @@ namespace TraverReserveCL
         {
             this.UserTicket = new HashSet<UserTicket>();
         }
-    
+        [DataMember(Order = 1)]
         public int Id { get; set; }
+        [DataMember(Order = 2)]
         public int TripId { get; set; }
+        [DataMember(Order = 3)]
         public decimal Price { get; set; }
+        [DataMember(Order = 4)]
         public System.DateTime FromDate { get; set; }
+        [DataMember(Order = 5)]
         public Nullable<System.DateTime> ToDate { get; set; }
-    
+        [DataMember(Order = 6)]
         public virtual Trip Trip { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [DataMember(Order = 7)]
         public virtual ICollection<UserTicket> UserTicket { get; set; }
     }
 }

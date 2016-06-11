@@ -11,16 +11,23 @@ namespace TraverReserveCL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+    [DataContract]
     public partial class UserPlan
     {
+        [DataMember(Order = 1)]
         public int Id { get; set; }
+        [DataMember(Order = 2)]
         public int UserId { get; set; }
+        [DataMember(Order = 3)]
         public int RouteId { get; set; }
+        [DataMember(Order = 4)]
         public System.DateTime FromDate { get; set; }
+        [DataMember(Order = 5)]
         public System.DateTime ToDate { get; set; }
-    
+        [DataMember(Order = 6)]
         public virtual Route Route { get; set; }
+        [DataMember(Order = 7)]
         public virtual User User { get; set; }
     }
 }
