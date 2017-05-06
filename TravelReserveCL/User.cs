@@ -7,12 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TraverReserveCL
+namespace TravelReserveCL
 {
     using System;
     using System.Collections.Generic;
-     using System.Runtime.Serialization;
-    
+    using System.Linq;
+    using System.Runtime.Serialization;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,20 +22,53 @@ namespace TraverReserveCL
             this.UserPlan = new HashSet<UserPlan>();
             this.UserTicket = new HashSet<UserTicket>();
         }
-        
+
+        public User(Protobuf.User userPb)
+        {
+            this.Id = userPb.Id;
+
+            this.Email = userPb.Email;
+
+            this.Password = userPb.Password.ToByteArray();
+
+            this.Username = userPb.Username;
+
+            this.UserPlan = (HashSet<UserPlan>)userPb.UserPlan.Select(up => new UserPlan(up));
+
+            this.UserTicket = (HashSet<UserTicket>)userPb.UserTicket.Select(ut => new UserTicket(ut));
+        }
+
         public int Id { get; set; }
-        
+
         public string Email { get; set; }
-        
+
         public byte[] Password { get; set; }
-        
+
         public string Username { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        
+
         public virtual ICollection<UserPlan> UserPlan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        
+
         public virtual ICollection<UserTicket> UserTicket { get; set; }
+
+        public Protobuf.User ToPBMessage()
+        {
+            Protobuf.User userPb = new Protobuf.User();
+            userPb.Id = this.Id;
+
+            userPb.Email = this.Email;
+
+            userPb.Password = Google.Protobuf.ByteString.CopyFrom(this.Password);
+
+            userPb.Username = this.Username;
+
+            userPb.UserPlan.AddRange(this.UserPlan.Select(up => up.ToPBMessage()));
+
+            userPb.UserTicket.AddRange(this.UserTicket.Select(ut => ut.ToPBMessage()));
+
+            return userPb;
+        }
     }
 }

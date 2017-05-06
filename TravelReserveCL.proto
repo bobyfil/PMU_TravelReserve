@@ -1,0 +1,116 @@
+syntax = "proto3";
+package TravelReserveCL.protobuf;
+
+message Bus {
+	int32 Id = 1;
+	string Name = 2;
+	int32 CompanyId = 3;
+	int32 Type =4;
+	Company Company = 5;
+	BusType BusType = 6;
+	repeated Trip Trip = 7;
+}
+
+message BusStation {
+	int32 Id = 1;
+	string Name = 2;
+	int32 CityId = 3;
+	double Latitude = 4;
+	double Longtitude = 5;
+	bool Default = 6;
+
+	City City = 7;
+	repeated Route RoutesFrom = 8;
+	repeated Route RoutesTo = 9;
+}
+
+message BusType {
+	int32 Id = 1;
+	string Name = 2;
+	int32 Seats = 3;
+
+	repeated Bus Bus = 4;
+}
+
+message City {
+	int32 Id = 1;
+	string Name = 2;
+
+	repeated BusStation BusStation = 3;
+}
+
+message Company {
+	int32 Id = 1;
+    string name = 2;
+    bytes logo = 3;
+    
+	repeated Bus Bus = 4;
+}
+
+message Route {
+	int32 Id = 1;
+	int32 From = 2;
+	int32 To = 3;
+	double Distance = 4;
+
+	BusStation BusStationFrom = 5;
+	BusStation BusStationTo = 6;
+	repeated Trip Trip = 7;
+	repeated UserPlan UserPlan = 8;
+}
+
+message Ticket {
+	int32 Id = 1;
+	int32 TripId = 2;
+	double Price = 3;
+	int64 FromDate = 4;
+	int64 ToDate = 5;//nullable
+
+	Trip Trip = 6;
+	repeated UserTicket UserTicket = 7;
+}
+
+message Trip {
+	int32 Id = 1;
+	int32 RouteId = 2;
+	int32 BusId = 3;
+	int32 AvailSeats = 4;
+	int32 Date = 5;
+	int32 Time = 6;
+	int32 ArrivalDate = 7;
+	int32 ArrivalTime = 8;
+
+	Bus Bus = 9;
+	Route Route = 10;
+	repeated Ticket Ticket = 11;
+}
+
+message User {
+	int32 Id = 1;       
+	string Email = 2;	
+	bytes Password = 3;	
+	string Username = 4;
+	repeated UserPlan UserPlan = 5;
+	repeated UserTicket UserTicket = 6;
+}
+
+message UserPlan {
+	int32 Id = 1;
+	int32 UserId = 2;
+	int32 RouteId = 3;
+	int64 FromDate = 4;
+	int64 ToDate = 5;
+
+	Route Route = 6;
+	User User = 7;
+}
+
+message UserTicket {
+	int32 Id = 1;
+	int32 UserId = 2;
+	int32 TicketId = 3;
+	int32 SeatNo = 4;
+
+	Ticket Ticket = 5;
+	User User = 6;
+}

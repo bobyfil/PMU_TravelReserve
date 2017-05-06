@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TraverReserveCL
+namespace TravelReserveCL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
     public partial class BusStation
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +20,20 @@ namespace TraverReserveCL
             this.RoutesFrom = new HashSet<Route>();
             this.RoutesTo = new HashSet<Route>();
         }
-    
+
+        public BusStation(Protobuf.BusStation busStationPB)
+        {
+            this.Id = busStationPB.Id;
+            this.Name = busStationPB.Name;
+            this.CityId = busStationPB.CityId;
+            this.Latitude = Convert.ToDecimal(busStationPB.Latitude);
+            this.Longtitude = Convert.ToDecimal(busStationPB.Longtitude);
+            this.Default = busStationPB.Default;
+
+            this.City = new City(busStationPB.City);
+            this.RoutesFrom = (HashSet < Route > )(HashSet < Route > )busStationPB.RoutesFrom.Select(r=> new Route(r));
+            this.RoutesTo = (HashSet<Route>)busStationPB.RoutesTo.Select(r => new Route(r));
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public int CityId { get; set; }
@@ -33,5 +46,21 @@ namespace TraverReserveCL
         public virtual ICollection<Route> RoutesFrom { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Route> RoutesTo { get; set; }
+
+        public TravelReserveCL.Protobuf.BusStation ToPBMessage()
+        {
+            Protobuf.BusStation busStationPB = new Protobuf.BusStation();
+            busStationPB.Id = this.Id;
+            busStationPB.Name = this.Name;
+            busStationPB.CityId = this.CityId;
+            busStationPB.Latitude = (double)this.Latitude;
+            busStationPB.Longtitude = (double)this.Longtitude;
+            busStationPB.Default = this.Default;
+
+            busStationPB.City = this.City.ToPBMessage();
+            busStationPB.RoutesFrom.AddRange(this.RoutesFrom.Select(r => r.ToPBMessage()));
+            busStationPB.RoutesTo.AddRange(this.RoutesTo.Select(r => r.ToPBMessage()));
+            return busStationPB;
+        }
     }
 }

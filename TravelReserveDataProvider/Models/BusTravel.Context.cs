@@ -9,7 +9,7 @@
 
 namespace TravelReserveDataProvider.Models
 {
-    using TraverReserveCL;
+    using TravelReserveCL;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;

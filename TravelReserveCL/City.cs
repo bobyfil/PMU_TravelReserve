@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TraverReserveCL
+namespace TravelReserveCL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
     public partial class City
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,11 +19,29 @@ namespace TraverReserveCL
         {
             this.BusStation = new HashSet<BusStation>();
         }
-    
+
+        public City(Protobuf.City cityPb)
+        {
+            this.Id = cityPb.Id;
+            this.Name = cityPb.Name;
+
+            this.BusStation = (HashSet<BusStation>)cityPb.BusStation.Select(bs => new BusStation(bs));
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BusStation> BusStation { get; set; }
+
+        public Protobuf.City ToPBMessage()
+        {
+            Protobuf.City cityPb = new Protobuf.City();
+            cityPb.Id = this.Id;
+            cityPb.Name = this.Name;
+
+            cityPb.BusStation.AddRange(this.BusStation.Select(bs => bs.ToPBMessage()));
+            return cityPb;
+        }
     }
 }

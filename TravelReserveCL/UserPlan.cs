@@ -7,20 +7,46 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TraverReserveCL
+namespace TravelReserveCL
 {
     using System;
     using System.Collections.Generic;
     
     public partial class UserPlan
     {
+        public UserPlan(Protobuf.UserPlan userPlanPb)
+        {
+            this.Id = userPlanPb.Id;
+            this.UserId = userPlanPb.UserId;
+            this.RouteId = userPlanPb.RouteId;
+            this.FromDate = DateTime.FromBinary(userPlanPb.FromDate);
+            this.ToDate = DateTime.FromBinary(userPlanPb.ToDate);
+
+            this.Route = new Route(userPlanPb.Route);
+            this.User = new User(userPlanPb.User);
+        }
+
         public int Id { get; set; }
         public int UserId { get; set; }
         public int RouteId { get; set; }
-        public System.DateTime FromDate { get; set; }
-        public System.DateTime ToDate { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
     
         public virtual Route Route { get; set; }
         public virtual User User { get; set; }
+
+        public Protobuf.UserPlan ToPBMessage()
+        {
+            Protobuf.UserPlan userPlanPb = new Protobuf.UserPlan();
+            userPlanPb.Id = this.Id;
+            userPlanPb.UserId = this.UserId;
+            userPlanPb.RouteId = this.RouteId;
+            userPlanPb.FromDate = this.FromDate.ToBinary();
+            userPlanPb.ToDate = this.ToDate.ToBinary();
+
+            userPlanPb.Route = this.Route.ToPBMessage();
+            userPlanPb.User = this.User.ToPBMessage();
+            return userPlanPb;
+        }
     }
 }

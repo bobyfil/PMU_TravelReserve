@@ -7,17 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TraverReserveCL
+namespace TravelReserveCL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
     public partial class BusType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BusType()
         {
             this.Bus = new HashSet<Bus>();
+        }
+
+        public BusType(Protobuf.BusType busTypePb)
+        {
+            this.Id = busTypePb.Id;
+            this.Name = busTypePb.Name;
+            this.Seats = busTypePb.Seats;
+
+            this.Bus = (HashSet < Bus > )busTypePb.Bus.Select(b => new Bus(b));
         }
     
         public int Id { get; set; }
@@ -26,5 +35,16 @@ namespace TraverReserveCL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bus> Bus { get; set; }
+
+        public Protobuf.BusType ToPBMessage()
+        {
+            Protobuf.BusType busTypePb = new Protobuf.BusType();
+            busTypePb.Id = this.Id;
+            busTypePb.Name = this.Name;
+            busTypePb.Seats = this.Seats;
+
+            busTypePb.Bus.AddRange(this.Bus.Select(b => b.ToPBMessage()));
+            return busTypePb;
+        }
     }
 }

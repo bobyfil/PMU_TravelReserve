@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TraverReserveCL
+namespace TravelReserveCL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
     public partial class Trip
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,19 +19,59 @@ namespace TraverReserveCL
         {
             this.Ticket = new HashSet<Ticket>();
         }
-    
+
+        public Trip(Protobuf.Trip tripPb)
+        {
+
+            this.Id = tripPb.Id;
+            this.RouteId = tripPb.RouteId;
+            this.BusId = tripPb.BusId;
+            this.AvailSeats = tripPb.AvailSeats;
+            DateTime temp = DateTime.MinValue.AddDays((double)tripPb.Date);
+            temp = temp.AddSeconds((double)tripPb.Time).ToLocalTime();
+            this.Date = temp.Date;
+            this.Time = temp.TimeOfDay;
+            temp = DateTime.MinValue.AddDays((double)tripPb.ArrivalDate);
+            temp = temp.AddSeconds((double)tripPb.ArrivalTime).ToLocalTime();
+            this.ArrivalDate = temp.Date;
+            this.ArrivalTime = temp.TimeOfDay;
+
+            this.Bus = new Bus(tripPb.Bus);
+            this.Route = new Route(tripPb.Route);
+            this.Ticket = (HashSet<Ticket>)tripPb.Ticket.Select(t => new Ticket(t));
+        }
+
         public int Id { get; set; }
         public int RouteId { get; set; }
         public int BusId { get; set; }
         public int AvailSeats { get; set; }
-        public System.DateTime Date { get; set; }
-        public System.TimeSpan Time { get; set; }
-        public System.DateTime ArrivalDate { get; set; }
-        public System.TimeSpan ArrivalTime { get; set; }
-    
+        public DateTime Date { get; set; }
+        public TimeSpan Time { get; set; }
+        public DateTime ArrivalDate { get; set; }
+        public TimeSpan ArrivalTime { get; set; }
+
         public virtual Bus Bus { get; set; }
         public virtual Route Route { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ticket> Ticket { get; set; }
+
+        public Protobuf.Trip ToPBMessage()
+        {
+            Protobuf.Trip tripPb = new Protobuf.Trip();
+            tripPb.Id = this.Id;
+            tripPb.RouteId = this.RouteId;
+            tripPb.BusId = this.BusId;
+            tripPb.AvailSeats = this.AvailSeats;
+            tripPb.Date = (int)Math.Floor(this.Date.ToUniversalTime().Subtract(DateTime.MinValue).TotalDays);
+            tripPb.Time = (int)Math.Floor(this.Time.TotalSeconds);
+            tripPb.ArrivalDate = (int)Math.Floor(this.ArrivalDate.ToUniversalTime().Subtract(DateTime.MinValue).TotalDays);
+            tripPb.ArrivalTime = (int)Math.Floor(this.ArrivalTime.TotalSeconds);
+
+            tripPb.Bus = this.Bus.ToPBMessage();
+            tripPb.Route = this.Route.ToPBMessage();
+            tripPb.Ticket.AddRange(this.Ticket.Select(t => t.ToPBMessage()));
+            return tripPb;
+
+        }
     }
 }

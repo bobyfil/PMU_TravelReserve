@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
 
-  <Identity Name="11ee32cf-8e0b-4af7-b92c-76ccce65560a"
+  <Identity Name="99401dc5-7086-42c7-9c41-4dc1a91c169d"
             Publisher="CN=Boby"
             Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="11ee32cf-8e0b-4af7-b92c-76ccce65560a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="99401dc5-7086-42c7-9c41-4dc1a91c169d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>TravelReserve</DisplayName>

@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TraverReserveCL
+namespace TravelReserveCL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
     public partial class Route
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,6 +19,19 @@ namespace TraverReserveCL
         {
             this.Trip = new HashSet<Trip>();
             this.UserPlan = new HashSet<UserPlan>();
+        }
+
+        public Route(Protobuf.Route routePB)
+        {
+            this.Id = routePB.Id;
+            this.From = routePB.From;
+            this.To = routePB.To;
+            this.Distance = Convert.ToDecimal(routePB.Distance);
+
+            this.BusStationFrom = new BusStation(routePB.BusStationFrom);
+            this.BusStationTo = new BusStation(routePB.BusStationTo);
+            this.Trip = (HashSet<Trip>)routePB.Trip.Select(t => new Trip(t));
+            this.UserPlan = (HashSet<UserPlan>)routePB.UserPlan.Select(up => new UserPlan(up));
         }
     
         public int Id { get; set; }
@@ -32,5 +45,21 @@ namespace TraverReserveCL
         public virtual ICollection<Trip> Trip { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserPlan> UserPlan { get; set; }
+
+        public Protobuf.Route ToPBMessage()
+        {
+            Protobuf.Route routePB = new Protobuf.Route();
+            routePB.Id = this.Id;
+            routePB.From = this.From;
+            routePB.To = this.To;
+            routePB.Distance = (double)this.Distance;
+
+            routePB.BusStationFrom = this.BusStationFrom.ToPBMessage();
+            routePB.BusStationTo = this.BusStationTo.ToPBMessage();
+            routePB.Trip.AddRange(this.Trip.Select(t => t.ToPBMessage()));
+            routePB.UserPlan.AddRange(this.UserPlan.Select(up => up.ToPBMessage()));
+
+            return routePB;
+        }
     }
 }
